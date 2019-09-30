@@ -1,6 +1,6 @@
 {
-    "id": "pluginkit-vue-typescript",
-    "name": "PluginKit Vue with TypeScript",
+    "id": "round_integer",
+    "name": "Round Integer Tool",
     "version": "1.0.0",
     "host": {
         "app": "XD",
@@ -9,8 +9,13 @@
     "uiEntryPoints": [
         {
             "type": "menu",
-            "label": "PluginKit Vue with TypeScript",
-            "commandId": "menuCommand"
+            "label": "再帰的に整数位置に丸める",
+            "commandId": "roundItemsRecursionMenu"
+        },
+        {
+            "type": "menu",
+            "label": "整数位置に丸める",
+            "commandId": "roundItemsMenu"
         }
     ]
 }
