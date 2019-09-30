@@ -10,7 +10,7 @@
     "package": "xdpm package ./dist && mv dist.xdx my-plugin.xdx"
   },
   "devDependencies": {
-    "@adobe/xdpm": "^1.1.2",
+    "@adobe/xdpm": "^3.0.1",
     "chokidar": "^2.0.4",
     "cli": "^1.0.1",
     "css-loader": "^2.1.0",
