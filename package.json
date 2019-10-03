@@ -3,6 +3,7 @@
   "license": "MIT",
   "private": true,
   "workspaces": [
-    "plugin-round-integer"
+    "plugin-round-integer",
+    "plugin-layer-renamer"
   ]
 }
