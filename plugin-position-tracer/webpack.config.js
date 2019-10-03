@@ -77,7 +77,9 @@ module.exports = {
     // webpack に実行時モジュールだと認識させる必要がある
     uxp: 'uxp',
     scenegraph: 'scenegraph',
+    clipboard: 'clipboard',
     commands: 'commands',
+    application: 'application',
   },
 
   plugins: [

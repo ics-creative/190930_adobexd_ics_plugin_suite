@@ -1,15 +1,6 @@
-//  temporary stubs required for Vue.
-//  These will not be required as soon as the XD environment provides setTimeout/clearTimeout
 import { SceneNode } from "scenegraph";
-
-global.setTimeout = fn => fn();
-global.clearTimeout = () => {};
-
-// ES Modules 方式で読み込みたいが、
-// 上述の setTimeout の互換性のため
-// CommonJS 方式で読み込むしかない
-const Vue = (require("vue") as any).default;
-const Hello = (require("./Hello.vue") as any).default;
+import Vue from "vue";
+import Hello from "./Hello.vue";
 
 /**
  * ダイアログを呼び出す

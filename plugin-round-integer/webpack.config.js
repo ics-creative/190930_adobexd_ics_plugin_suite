@@ -68,7 +68,7 @@ module.exports = {
       // エイリアスを失敗したら地獄を見る
     },
     extensions: [
-      '.ts', '.js', '.json',
+      '.vue', '.ts', '.js', '.json',
     ],
   },
 
