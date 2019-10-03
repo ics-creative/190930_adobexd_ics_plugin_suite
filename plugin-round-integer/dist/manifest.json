@@ -1,0 +1,52 @@
+{
+  "id": "ics-roun",
+  "name": "ICS - 座標を整数にまとめる君",
+  "description": "ちょっとした拡張機能",
+  "summary": "気軽に使ってね",
+  "author": "ICS INC.",
+  "languages": ["ja"],
+  "version": "1.0.0",
+  "icons": [
+    {
+      "width": 24,
+      "height": 24,
+      "path": "icons/icon_24.png"
+    },
+    {
+      "width": 48,
+      "height": 48,
+      "path": "icons/icon_48.png"
+    },
+    {
+      "width": 96,
+      "height": 96,
+      "path": "icons/icon_96.png"
+    },
+    {
+      "width": 144,
+      "height": 144,
+      "path": "icons/icon_144.png"
+    },
+    {
+      "width": 192,
+      "height": 192,
+      "path": "icons/icon_192.png"
+    }
+  ],
+  "host": {
+    "app": "XD",
+    "minVersion": "22.0"
+  },
+  "uiEntryPoints": [
+    {
+      "type": "menu",
+      "label": "再帰的に整数位置に丸める",
+      "commandId": "roundItemsRecursionMenu"
+    },
+    {
+      "type": "menu",
+      "label": "整数位置に丸める",
+      "commandId": "roundItemsMenu"
+    }
+  ]
+}
