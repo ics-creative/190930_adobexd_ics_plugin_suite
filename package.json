@@ -4,6 +4,8 @@
   "private": true,
   "workspaces": [
     "plugin-round-integer",
-    "plugin-layer-renamer"
+    "plugin-layer-renamer",
+    "plugin-draw-graphics-tree",
+    "plugin-position-tracer"
   ]
 }
