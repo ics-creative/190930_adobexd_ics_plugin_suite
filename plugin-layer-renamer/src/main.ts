@@ -1,56 +1,41 @@
 import { SceneNode } from "scenegraph";
-import Vue from "vue";
-import Hello from "./Hello.vue";
+
+const nameConvertRule = [
+  { target: "アセット", expected: "asset" },
+  { target: "シェイプ", expected: "shape" },
+  { target: "シンボル", expected: "symbol" },
+  { target: "レイヤー", expected: "layer" },
+  { target: "グループ化", expected: "group" },
+  { target: "グループ", expected: "group" },
+  { target: "フォント", expected: "font" },
+  { target: "グラフィック", expected: "graphic" },
+  { target: "ビデオ", expected: "video" },
+  { target: "フォルダー", expected: "folder" },
+  { target: "トゥイーン", expected: "tween" },
+  { target: "名称未設定", expected: "untitled" },
+  { target: "長方形", expected: "rectangle" },
+  { target: "楕円形", expected: "ellipse" },
+  { target: "線", expected: "line" },
+  { target: "リピートグリッド", expected: "RepeatGrid" },
+  { target: "アートボード", expected: "ArtBoard" },
+  { target: "パス", expected: "path" },
+  { target: "画像", expected: "image" }
+];
 
 /**
- * ダイアログを呼び出す
- */
-function createDialog(): HTMLDialogElement {
-  document.body.innerHTML = `<dialog><div class="container"></div></dialog>`;
-  const dialog = document.querySelector("dialog");
-  const container = document.querySelector(".container");
-  new Vue({
-    el: container,
-    components: { Hello },
-    render(h) {
-      return h(Hello, { props: { dialog } });
-    }
-  });
-  return dialog;
-}
-
-/**
- * 日本語から英語に変更する
- * @param {string} n
- * @returns {string}
+ * 日本語から英語に変更します。
  */
 function convertJpToEn(jp: string) {
   let name = jp;
-  name = name.split("アセット").join("asset");
-  name = name.split("シェイプ").join("shape");
-  name = name.split("シンボル").join("symbol");
-  name = name.split("レイヤー").join("layer");
-  name = name.split("グループ化").join("group");
-  name = name.split("グループ").join("group");
-  name = name.split("フォント").join("font");
-  name = name.split("グラフィック").join("graphic");
-  name = name.split("ビデオ").join("video");
-  name = name.split("フォルダー").join("folder");
-  name = name.split("トゥイーン").join("tween");
-  name = name.split("名称未設定").join("unknown");
-  name = name.split("長方形").join("rectangle");
-  name = name.split("楕円形").join("ellipse");
-  name = name.split("線").join("line");
-  name = name.split("リピートグリッド").join("repeat_grid");
-  name = name.split("アートボード").join("artboard");
-  name = name.split("パス").join("path");
-  name = name.split("画像").join("image");
-
+  nameConvertRule.forEach(item => {
+    name = name.split(item.target).join(item.expected);
+  });
   name = name
     .split("　")
     .join(" ")
     .split(" ")
     .join("_");
+
   return name;
 }
 
