@@ -16,7 +16,7 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { PositionType } from "./PositionType";
+import { PositionType } from "../types/PositionType";
 import { copyText } from "clipboard";
 import { editDocument } from "application";
 

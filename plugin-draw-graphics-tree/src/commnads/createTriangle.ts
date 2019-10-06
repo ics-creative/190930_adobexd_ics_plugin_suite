@@ -1,12 +1,6 @@
-type LineType = {
-  startX: number;
-  startY: number;
-  endX: number;
-  endY: number;
-  color: number;
-};
+import LineType from "../types/LineType";
 
-export function createTriangle(): LineType[] {
+export default function createTriangle(): LineType[] {
   // ステージを作成
   // 正三角形の一辺の大きさを指定
   const SIZE = 600;

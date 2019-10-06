@@ -1,6 +1,6 @@
 {
   "id": "ics-draw",
-  "name": "ICS - 木を描く君",
+  "name": "ICS - フラクタル君",
   "description": "ちょっとした拡張機能",
   "summary": "気軽に使ってね",
   "author": "ICS INC.",
@@ -40,8 +40,13 @@
   "uiEntryPoints": [
     {
       "type": "menu",
-      "label": "描く",
+      "label": "シェルピンスキーギャスケット",
       "commandId": "commandTriangle"
+    },
+    {
+      "type": "menu",
+      "label": "木",
+      "commandId": "commandTree"
     }
   ]
 }

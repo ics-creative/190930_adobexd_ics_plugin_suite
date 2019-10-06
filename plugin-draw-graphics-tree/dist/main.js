@@ -87,19 +87,39 @@ module.exports =
 /************************************************************************/
 /******/ ({
 
-/***/ "./src/commandTriangle.ts":
-/*!********************************!*\
-  !*** ./src/commandTriangle.ts ***!
-  \********************************/
+/***/ "./src/commnads/commandTree.ts":
+/*!*************************************!*\
+  !*** ./src/commnads/commandTree.ts ***!
+  \*************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-const scenegraph_1 = __webpack_require__(/*! scenegraph */ "scenegraph");
-const commands = __webpack_require__(/*! commands */ "commands");
-const createTriangle_1 = __webpack_require__(/*! ./createTriangle */ "./src/createTriangle.ts");
+const createTree_1 = __webpack_require__(/*! ./createTree */ "./src/commnads/createTree.ts");
+const drawLines_1 = __webpack_require__(/*! ./drawLines */ "./src/commnads/drawLines.ts");
+const lineData = createTree_1.default();
+function commandTree(selection) {
+    drawLines_1.default(selection, lineData);
+}
+exports.default = commandTree;
+
+
+/***/ }),
+
+/***/ "./src/commnads/commandTriangle.ts":
+/*!*****************************************!*\
+  !*** ./src/commnads/commandTriangle.ts ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+const createTriangle_1 = __webpack_require__(/*! ./createTriangle */ "./src/commnads/createTriangle.ts");
+const drawLines_1 = __webpack_require__(/*! ./drawLines */ "./src/commnads/drawLines.ts");
 // import Vue from "vue";
 // import Dialog from "./Dialog.vue";
 /**
@@ -118,36 +138,71 @@ const createTriangle_1 = __webpack_require__(/*! ./createTriangle */ "./src/crea
 //   });
 //   return dialog;
 // }
-const lineData = createTriangle_1.createTriangle();
+const lineData = createTriangle_1.default();
 function commandTriangle(selection) {
     // createDialog().showModal();
-    // [1]
-    const lines = []; // [2]
-    lineData.forEach(data => {
-        // [3]
-        const line = new scenegraph_1.Line(); // [4.i]
-        line.setStartEnd(
-        // [4.ii]
-        data.startX, data.startY, data.endX, data.endY);
-        line.strokeEnabled = true; // [4.iii]
-        line.stroke = new scenegraph_1.Color("#FF0000"); // [4.iv]
-        line.strokeWidth = 3; // [4.v]
-        line.strokeEndCaps = scenegraph_1.GraphicNode.STROKE_CAP_ROUND; // [4.v]
-        lines.push(line); // [4.vi]
-        selection.editContext.addChild(line); // [4.vii]
-    });
-    selection.items = lines; // [5]
-    commands.group(); // [6]
+    drawLines_1.default(selection, lineData);
 }
-exports.commandTriangle = commandTriangle;
+exports.default = commandTriangle;
 
 
 /***/ }),
 
-/***/ "./src/createTriangle.ts":
-/*!*******************************!*\
-  !*** ./src/createTriangle.ts ***!
-  \*******************************/
+/***/ "./src/commnads/createTree.ts":
+/*!************************************!*\
+  !*** ./src/commnads/createTree.ts ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+const LENGTH_MULTIPLY = 0.8;
+const DEGREE_BRANCH = 45;
+function createTree() {
+    const lines = [];
+    // フラクタルの木を描く
+    drawTree(0, 0, 400, 270, 10);
+    // 枝を描く
+    function drawTree(x1, // 始点のX座標
+    y1, // 始点のY座標
+    leng, // 枝の長さ
+    angle, // 枝の伸びる方向(角度)
+    level) {
+        // 再帰レベル
+        // 次の枝の座標を算出
+        const x2 = leng * Math.cos((angle * Math.PI) / 180) + x1;
+        const y2 = leng * Math.sin((angle * Math.PI) / 180) + y1;
+        // 線の種類を設定
+        // 枝を結ぶ
+        lines.push({
+            startX: x1,
+            startY: y1,
+            endX: x2,
+            endY: y2,
+            color: 0xFF0000
+        });
+        // 細分化
+        if (level > 0) {
+            // 細分化レベルを更新
+            level = level - 1;
+            // 次の枝を描く
+            drawTree(x2, y2, leng * LENGTH_MULTIPLY, angle + DEGREE_BRANCH, level);
+            drawTree(x2, y2, leng * LENGTH_MULTIPLY, angle - DEGREE_BRANCH, level);
+        }
+    }
+    return lines;
+}
+exports.default = createTree;
+
+
+/***/ }),
+
+/***/ "./src/commnads/createTriangle.ts":
+/*!****************************************!*\
+  !*** ./src/commnads/createTriangle.ts ***!
+  \****************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -205,7 +260,43 @@ function createTriangle() {
     }
     return lines;
 }
-exports.createTriangle = createTriangle;
+exports.default = createTriangle;
+
+
+/***/ }),
+
+/***/ "./src/commnads/drawLines.ts":
+/*!***********************************!*\
+  !*** ./src/commnads/drawLines.ts ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+const scenegraph_1 = __webpack_require__(/*! scenegraph */ "scenegraph");
+const commands = __webpack_require__(/*! commands */ "commands");
+function drawLines(selection, lineData) {
+    // [1]
+    const lines = []; // [2]
+    lineData.forEach(data => {
+        // [3]
+        const line = new scenegraph_1.Line(); // [4.i]
+        line.setStartEnd(
+        // [4.ii]
+        data.startX, data.startY, data.endX, data.endY);
+        line.strokeEnabled = true; // [4.iii]
+        line.stroke = new scenegraph_1.Color("#FF0000"); // [4.iv]
+        line.strokeWidth = 3; // [4.v]
+        line.strokeEndCaps = scenegraph_1.GraphicNode.STROKE_CAP_ROUND; // [4.v]
+        lines.push(line); // [4.vi]
+        selection.editContext.addChild(line); // [4.vii]
+    });
+    selection.items = lines; // [5]
+    commands.group(); // [6]
+}
+exports.default = drawLines;
 
 
 /***/ }),
@@ -220,11 +311,13 @@ exports.createTriangle = createTriangle;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-const commandTriangle_1 = __webpack_require__(/*! ./commandTriangle */ "./src/commandTriangle.ts");
+const commandTriangle_1 = __webpack_require__(/*! ./commnads/commandTriangle */ "./src/commnads/commandTriangle.ts");
+const commandTree_1 = __webpack_require__(/*! ./commnads/commandTree */ "./src/commnads/commandTree.ts");
 // メニューとして出力する
 module.exports = {
     commands: {
-        commandTriangle: commandTriangle_1.commandTriangle
+        commandTriangle: commandTriangle_1.default,
+        commandTree: commandTree_1.default
     }
 };
 
